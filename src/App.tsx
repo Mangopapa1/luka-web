@@ -1,26 +1,28 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+import Router from './Router';
+import reset from 'styled-reset';
+
+const GlobalStyle = createGlobalStyle`
+  /* @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400&display=swap'); */
+    ${reset}
+    body {
+        font-family: 'Source Sans 3', sans-serif;
+        background-color: ${props => props.theme.bgColor};
+        color: ${props => props.theme.textColor}
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+`
 
 function App() {
-    const [value, setValue] = useState("");
-    const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-        const { currentTarget: { value } } = e;
-        setValue(value);
-    }
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log("hello", value);
-
-    }
     return (
-        <div>
-            <form onSubmit={onSubmit}>
-                <input type="text"
-                    value={value}
-                    placeholder='username' onChange={onChange} />
-                <button>Log in</button>
-            </form>
-        </div>
+        <>
+            <GlobalStyle />
+            <Router />
+        </>
     )
 }
 export default App;
